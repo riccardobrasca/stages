@@ -22,3 +22,12 @@ begin
       exact aU,
    },
 end
+
+/-- `semigroup G` signifie que la multiplication est associative, on peut utiliser
+`mul_assoc`. -/
+example (G : Type) [semigroup G]
+  (H : ∃ (e : G), (∀ g, g * e = g) ∧ (∀ g, ∃ g', g * g' = e)) :
+  ∃ (u : G), (∀ g, g * u = g ∧ u * g = g) ∧ (∀ g, ∃ g', g * g' = u ∧ g' * g = u) :=
+begin
+  sorry
+end
