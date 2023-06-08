@@ -10,16 +10,9 @@ example (n : ℕ) (hn : 2 ≤ n) : is_subgroup ({z | z ^ n = 1} : set ℂˣ) :=
 begin
   split,
     {
-        split,
-        {
-          rw [set.mem_set_of_eq, one_pow],
-        },
-        {
-          intros a b aU bU,
-          rw set.mem_set_of_eq at *,
-          rw [mul_pow, aU, bU],
-          norm_num,
-        }
+      refine ⟨by rwa [set.mem_set_of_eq, one_pow], λ a b aU bU,_⟩,
+      rw set.mem_set_of_eq at *,
+      rw [mul_pow, aU, bU,one_mul],
     },
     {
       intros a aU,
