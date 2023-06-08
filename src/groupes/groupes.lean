@@ -55,9 +55,6 @@ begin
         sorry
       },
     use g',
-    refine ⟨by exact inv, _⟩,
-    {
-      exact g'g,
-    }
+    refine ⟨by exact inv,by exact g'g⟩,
   }
 end
