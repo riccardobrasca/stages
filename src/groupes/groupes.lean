@@ -11,16 +11,22 @@ begin
   split,
     {
         split,
-        {simp},
-        {intros a b aU bU,
-          simp at *,
+        {
+          rw [set.mem_set_of_eq, one_pow],
+        },
+        {
+          intros a b aU bU,
+          rw set.mem_set_of_eq at *,
           rw [mul_pow, aU, bU],
-          norm_num,}
+          norm_num,
+        }
     },
-    {intros a aU,
-      simp,
-      exact aU,
-   },
+    {
+      intros a aU,
+      rw set.mem_set_of_eq at *,
+      rw [inv_pow,aU],
+      refl,
+   }
 end
 
 /-- `semigroup G` signifie que la multiplication est associative, on peut utiliser
