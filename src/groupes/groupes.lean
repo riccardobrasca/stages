@@ -28,5 +28,36 @@ example (G : Type) [semigroup G]
   (H : ∃ (e : G), (∀ g, g * e = g) ∧ (∀ g, ∃ g', g * g' = e)) :
   ∃ (u : G), (∀ g, g * u = g ∧ u * g = g) ∧ (∀ g, ∃ g', g * g' = u ∧ g' * g = u) :=
 begin
-  sorry
+  rcases H with ⟨e,h⟩,
+  rcases h with ⟨en,inv⟩,
+  use e,
+  split,
+  {
+    intro g,
+    specialize en g,
+    refine ⟨by exact en,_⟩,
+    {
+      specialize inv g,
+      cases inv with g' inv,
+      have g'g : g'*g = e,
+      {
+        sorry
+      },
+      rw [<- inv, mul_assoc,g'g,en],
+    } 
+  },
+  {
+    intro g,
+    specialize inv g,
+    cases inv with g' inv,
+    have g'g : g'*g = e,
+      {
+        sorry
+      },
+    use g',
+    refine ⟨by exact inv, _⟩,
+    {
+      exact g'g,
+    }
+  }
 end
