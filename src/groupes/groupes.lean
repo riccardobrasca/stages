@@ -37,7 +37,7 @@ begin
     intro g,
     refine ⟨by exact en g,_⟩,
     {
-      
+      sorry
     }
   }
 end
