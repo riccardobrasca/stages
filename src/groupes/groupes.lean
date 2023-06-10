@@ -22,6 +22,8 @@ begin
    }
 end
 
+
+
 /-- `semigroup G` signifie que la multiplication est associative, on peut utiliser
 `mul_assoc`. -/
 example (G : Type) [semigroup G]
