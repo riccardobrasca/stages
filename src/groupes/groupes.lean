@@ -31,30 +31,13 @@ begin
   rcases H with ⟨e,h⟩,
   rcases h with ⟨en,inv⟩,
   use e,
+
   split,
   {
     intro g,
-    specialize en g,
-    refine ⟨by exact en,_⟩,
+    refine ⟨by exact en g,_⟩,
     {
-      specialize inv g,
-      cases inv with g' inv,
-      have g'g : g'*g = e,
-      {
-        sorry
-      },
-      rw [<- inv, mul_assoc,g'g,en],
-    } 
-  },
-  {
-    intro g,
-    specialize inv g,
-    cases inv with g' inv,
-    have g'g : g'*g = e,
-      {
-        sorry
-      },
-    use g',
-    refine ⟨by exact inv,by exact g'g⟩,
+      
+    }
   }
 end
