@@ -9,15 +9,15 @@ namespace module
 namespace End
 
 
-variables {R : Type u} {M : Type v} [comm_ring R] [nontrivial R]
-variables [add_comm_group M] [module R M] [module.free R M] [module.finite R M] (f : End R M)
+variables {R : Type u} {V : Type v} [field R]
+variables [add_comm_group V] [module R V] (f : End R V)
 
 
 lemma non_empty_ker_implies_det_zero   (h : f.ker ≠ ⊥) : 
 -- I woudl want to have something like this:
 -- f.det = 0 :=
 -- but i cannot due to the hypothesis on f (End R M)
-f.det =0 :=
+f.det = 0 :=
 begin
   sorry,
 end
