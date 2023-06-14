@@ -1,7 +1,7 @@
 import linear_algebra.free_module.finite.basic
 import linear_algebra.charpoly.basic
 import linear_algebra.eigenspace.basic
-
+import linear_algebra.determinant
 
 universes u v w
 
