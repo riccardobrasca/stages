@@ -15,7 +15,14 @@ variables [add_comm_group M] [module R M] [module.free R M] [module.finite R M] 
 theorem is_eigenvector_implies_is_root{μ : R} (h : f.has_eigenvalue μ) :
   (f.charpoly).is_root μ :=
 begin
-  sorry,
+  rcases (submodule.ne_bot_iff _).1 h with ⟨v, ⟨H, ne0⟩⟩, -- (1)
+  rw eigenspace at H, -- (2)
+-- Objectif:
+-- (1) v ∈ eigenspace(μ)
+-- (2) v ∈ ker(f - μ • id)
+-- (3) ker(f - μ • Id) ≠ ∅
+-- (4) det(f - μ • Id) = 0
+-- (5) f.charpoly(μ) = 0
 end
 
 theorem is_root_implies_is_eigenvector{μ : R} (h:  (f.charpoly).is_root μ):
