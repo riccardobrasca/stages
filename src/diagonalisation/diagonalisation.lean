@@ -10,7 +10,7 @@ namespace End
 
 
 variables {R : Type u} {V : Type v} [field R]
-variables [add_comm_group V] [module R V] (f : End R V)
+variables [add_comm_group V] [module R V] [module.finite R V] (f : End R V)
 
 
 lemma non_empty_ker_implies_det_zero   (h : f.ker ≠ ⊥) : 
