@@ -1,4 +1,3 @@
-import linear_algebra.free_module.finite.basic
 import linear_algebra.charpoly.basic
 import linear_algebra.eigenspace.basic
 import linear_algebra.determinant
@@ -9,9 +8,9 @@ universes u v w
 namespace module
 namespace End
 
-
 variables {R : Type u} {V : Type v} [field R]
 variables [add_comm_group V] [module R V] [module.finite R V] (f : End R V)
+
 
 lemma non_empty_ker_implies_det_zero  {g: End R V} (h : g.ker ≠ ⊥) :
   g.det = 0 :=
@@ -23,6 +22,18 @@ begin
   intros x y hxy,
   exact g2.injective hxy,
 end
+
+
+theorem eval_charpoly {n : Type*} [fintype n] [decidable_eq n] (M : matrix n n R) (μ : R) :
+polynomial.eval μ M.charpoly = (matrix.scalar n μ - M).det :=
+begin
+  rw [matrix.charpoly, charmatrix, ← polynomial.coe_aeval_eq_eval, alg_hom.map_det],
+  congr,
+  ext i j,
+  by_cases hij : i = j;
+  { simp [hij] },
+end
+
 
 
 theorem is_eigenvector_implies_is_root{μ : R} (h : f.has_eigenvalue μ) :
@@ -38,7 +49,6 @@ begin
   have H2 := non_empty_ker_implies_det_zero H1, -- (4)
   rw polynomial.is_root,
   rw ← H2,
-  -- I'm stuck here. The goal is literally `det(f - μ • id) = det(f - μ • id)`, but Lean doesn't know that...
 
 -- Objective:
 -- (1) v ∈ eigenspace(μ)
