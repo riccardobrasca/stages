@@ -1,0 +1,1 @@
+Je fais d'abord des exercices dans mathematics_in_lean3 puis une construction de la compactification de Stone-Chec et enfin une démonstration de la propriété universelle.
