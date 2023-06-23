@@ -22,6 +22,16 @@ begin
    }
 end
 
+lemma foo (G : Type) [semigroup G] {e : G} (He : ∀ g, g * e = g) {g g' g'' : G} 
+  (h1 : g * g' = e) (h2 : g' * g'' = e) : g' * g = e :=
+begin
+  have : g' * g * g' = g',
+  { rw [mul_assoc, h1, He g'] },
+  have H : g' * g * g' * g'' = g' * g'',
+  { rw [this] },
+  rw [h2, mul_assoc, h2, He] at H,
+  exact H
+end
 
 
 /-- `semigroup G` signifie que la multiplication est associative, on peut utiliser
@@ -35,11 +45,21 @@ begin
   use e,
 
   split,
-  {
-    intro g,
-    refine ⟨by exact en g,_⟩,
-    {
-      sorry
-    }
-  }
+  swap,
+  { intro g,
+    obtain ⟨g', hg'⟩ := inv g,
+    use g',
+    split,
+    exact hg',
+    obtain ⟨g'', hg''⟩ := inv g',
+    exact foo G en hg' hg'' },
+  { intro g,
+    split,
+    exact en g,
+    obtain ⟨g', hg'⟩ := inv g,
+    rw [← hg', mul_assoc],
+    suffices : g' * g = e,
+    { rw [this, en] },
+    obtain ⟨g'', hg''⟩ := inv g',
+    exact foo G en hg' hg'' }
 end
