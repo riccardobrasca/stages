@@ -8,9 +8,7 @@ variables (G : Type) [group G]
 lemma is_unique_e (G : Type) [group G] (e1 e2 : G)
   (H1 : ∀ g : G, g*e1=g ∧ e1*g=g ) (H2 : ∀ g : G, g*e2=g ∧ e2*g=g ) : e1=e2 :=
 begin
-  specialize H1 e2,
-  specialize H2 e1,
-  rw [<- H1.2, H2.1],
+  rw [<- (H1 e2).2, (H2 e1).1],
 end 
 
 
