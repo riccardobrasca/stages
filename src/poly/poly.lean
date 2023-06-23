@@ -8,6 +8,11 @@ open polynomial
 
 variables (R : Type) [comm_ring R] (P : R[X])
 
+lemma basique : (P ∉ non_zero_divisors R[X]) ↔ ∃ Q ≠ 0, P * Q = 0 :=
+begin
+  sorry
+end
+
 lemma foo (P ∉ non_zero_divisors R[X]) : P.erase_lead ∉ non_zero_divisors R[X] :=
 begin
   sorry
