@@ -1,4 +1,4 @@
-import data.polynomial.basic
+import data.polynomial.erase_lead
 import ring_theory.non_zero_divisors
 import ring_theory.nilpotent
 
@@ -7,6 +7,11 @@ open_locale polynomial
 open polynomial
 
 variables (R : Type) [comm_ring R] (P : R[X])
+
+lemma foo (P ∉ non_zero_divisors R[X]) : P.erase_lead ∉ non_zero_divisors R[X] :=
+begin
+  sorry
+end
 
 example (P ∉ non_zero_divisors R[X]) :
   ∃ (r : R), r ≠ 0 ∧ (C r) * P = 0 :=
