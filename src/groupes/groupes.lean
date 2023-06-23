@@ -63,3 +63,9 @@ begin
     obtain ⟨g'', hg''⟩ := inv g',
     exact foo G en hg' hg'' }
 end
+
+example (G : Type) [group G] (H : set G) (h : ∀ g₁ g₂, g₁ ∈ H → g₂ ∈ H → g₁ * g₂ ∈ H )
+  (finite : H.finite) : is_subgroup H :=
+begin
+  sorry
+end
