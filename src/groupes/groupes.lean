@@ -5,18 +5,22 @@ import algebra.group.units
 variables (G : Type) [group G]
 
 
-lemma is_unique_e (G : Type) [group G] (e1 e2 : G)
+lemma is_unique_1 (G : Type) [group G] (e1 e2 : G)
   (H1 : ∀ g : G, g*e1=g ∧ e1*g=g ) (H2 : ∀ g : G, g*e2=g ∧ e2*g=g ) : e1=e2 :=
 begin
   rw [<- (H1 e2).2, (H2 e1).1],
 end 
 
 
-
-lemma is_unique_sym (G : Type) [group G] (g g' : G) (h : g * g' = 1) : g'= g⁻¹:=
+lemma is_unique_sym_left (G : Type) [group G] (g g' : G) (h : g' * g = 1) : g'= g⁻¹:=
 begin 
-  have mul_left:  g*g'=g*g⁻¹ := by rw [h, mul_right_inv],
-  sorry
+  rw [<- mul_one g',<-mul_right_inv g,<- mul_assoc,h,one_mul],
+end
+
+
+lemma is_unique_sym_right (G : Type) [group G] (g g' : G) (h : g * g' = 1) : g'= g⁻¹:=
+begin 
+  rw [<- one_mul g', <- mul_left_inv g, mul_assoc,h,mul_one],
 end 
 
 /-
