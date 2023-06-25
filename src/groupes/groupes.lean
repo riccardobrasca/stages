@@ -23,10 +23,21 @@ begin
   rw [<- one_mul g', <- mul_left_inv g, mul_assoc,h,mul_one],
 end 
 
-/-
-lemma foo1 (G : Type) [group G] (e x y : G)
-(Hx : x*y = e ∧ y*x = e) 
--/
+
+lemma foo1 (G : Type) [group G] (x y : G)
+(Hx : x * y = 1 ∧ y * x = 1) : y⁻¹ = x := 
+begin 
+  rw [<- one_mul y⁻¹, <-Hx.1,mul_assoc,mul_right_inv,mul_one],
+end
+ 
+
+lemma foo2 (G : Type) [group G] (x : G) : (x⁻¹)⁻¹ = x := foo1 x x⁻¹
+
+
+
+
+--lemma subgroup_inter (G H H': Type) [group G]
+
 
 /-- Pour prouver `is_subgroup` on peut utiliser `split`. Le premier objectif, `is_monoid`,
 peut être décomposé plus avec un autre `split`. -/
@@ -37,6 +48,7 @@ begin
       rw set.mem_set_of_eq at *,
       rw [mul_pow, aU, bU,one_mul],},
     { intros a aU,
+
       rw set.mem_set_of_eq at *,
       rw [inv_pow,aU],
       refl,}
@@ -84,5 +96,5 @@ end
 example (G : Type) [group G] (H : set G) (h : ∀ g₁ g₂, g₁ ∈ H → g₂ ∈ H → g₁ * g₂ ∈ H )
   (finite : H.finite) : is_subgroup H :=
 begin
-  sorry
+  sorry,
 end
