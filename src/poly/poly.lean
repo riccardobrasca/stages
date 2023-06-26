@@ -38,9 +38,14 @@ def annihilator_deg {R : Type*} [comm_ring R] (P : R[X]) := (λ Q : R[X], nat_de
 theorem nonvide_image {R : Type*} [comm_ring R] {P : R[X]} (hP : P ∉ non_zero_divisors R[X]) : (annihilator_deg P).nonempty := sorry
 
 /-- This means in practice that `annihilator_deg P` has a minimum. It is a mathlib stuff, every non empty `set ℕ ` is well founded. It doesn't matter for you what it means. -/
-theorem bien_fondee {R : Type*} [comm_ring R] {P : R[X]} (hP : P ∉ non_zero_divisors R[X]) : (annihilator_deg P).is_wf := sorry
-
-
+theorem bien_fondee {R : Type*} [comm_ring R] {P : R[X]} (hP : P ∉ non_zero_divisors R[X]) : (annihilator_deg P).is_wf :=
+begin
+  suffices : (set.univ : set ℕ).is_wf,
+  { exact set.is_wf.mono this (annihilator_deg P).subset_univ },
+  rw [set.is_wf_univ_iff],
+  exact nat.lt_wf
+end
+ 
 /-- This is the mininum of `nonvide_image`. Forget about `noncomputalbe`. -/
 noncomputable
 def min_deg (hP : P ∉ non_zero_divisors R[X]) := set.is_wf.min (bien_fondee hP) (nonvide_image hP)
