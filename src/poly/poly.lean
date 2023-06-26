@@ -10,7 +10,20 @@ variables (R : Type) [comm_ring R] (P : R[X])
 
 lemma basique : (P ∉ non_zero_divisors R[X]) ↔ ∃ Q ≠ 0, P * Q = 0 :=
 begin
-  sorry
+  intro h,
+  dsimp [mem_non_zero_divisors_iff] at h,
+  simp at h,
+  obtain ⟨Q,hq⟩ := h,
+  use Q,
+  split,
+  {
+    apply hq.2,
+  },
+  {
+    cases hq with hq1 hq2,
+    rw mul_comm at hq1,
+    exact hq1,
+  },
 end
 
 lemma foo (P ∉ non_zero_divisors R[X]) : P.erase_lead ∉ non_zero_divisors R[X] :=
@@ -21,33 +34,23 @@ end
 example (P ∉ non_zero_divisors R[X]) :
   ∃ (r : R), r ≠ 0 ∧ (C r) * P = 0 :=
 begin
-  induction h : P.nat_degree using nat.strong_induction_on with k hind generalizing P,
-  
-  dsimp at hind,
-  
-  by_cases hdeg : P.nat_degree = 0,
+
+  obtain ⟨Q,hq1,hq2⟩ := basique R P h,
+  -- permet d'obtenir Q tel que PQ = 0
+
+  by_cases Q.nat_degree ≥ 1,
   {
+    -- pour ce cas il me faut supposer la minimalité de deg(Q) 
+    -- mais je ne vois pas comment le faire de manière simple
     
-    have INT_1 : ∃ (α : R), ¬ α = 0 ∧ ((C α)*P).nat_degree = k-1,
-    {
-      sorry
-    },
-    
-    obtain ⟨α,b,ha⟩ := INT_1,  
-
-    have INT_2 : ∃ (β : R), ¬ β = 0 ∧ ((C β)*((C α)*P)) = 0,   
-    {
-      sorry
-    },
-
-    obtain ⟨β,b,hb⟩ := INT_2,
-
-    -- appliquer l'associativité et normalement c'est gagné
-    -- mais problème pour montrer que alphabeta != 0
-
+    -- ensuite je pourrais effectuer un raisonnement par l'absurde
+    -- et ça devrait suffire
+    sorry
   },
   {
-    --P.erase_lead
+    simp at h,
+    -- ici je voudrais pouvoir 'use' directement le terme constant de Q.
+    -- il me faudrait une sorte de réciproque de C r
     sorry
   }
 
