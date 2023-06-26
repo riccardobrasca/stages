@@ -26,6 +26,25 @@ begin
   },
 end
 
+/-- This is the set of polynomial `Q` such that `P * Q = 0` -/
+def annihilator {R : Type*} [comm_ring R] (P : R[X]) := {Q : R[X] | P * Q = 0}
+
+theorem nonvide (P ∉ non_zero_divisors R[X]) : (annihilator P).nonempty := sorry
+
+/-- This is the image, via `nat_degree`, of `(annihilator P)`. -/
+def annihilator_deg {R : Type*} [comm_ring R] (P : R[X]) := (λ Q : R[X], nat_degree Q)'' (annihilator P)
+
+/-- `annihilator_deg` is nonempty if `P ∉ non_zero_divisors R[X]` (since `annihilator_deg P` is not empty). -/
+theorem nonvide_image {R : Type*} [comm_ring R] {P : R[X]} (hP : P ∉ non_zero_divisors R[X]) : (annihilator_deg P).nonempty := sorry
+
+/-- This means in practice that `annihilator_deg P` has a minimum. It is a mathlib stuff, every non empty `set ℕ ` is well founded. It doesn't matter for you what it means. -/
+theorem bien_fondee {R : Type*} [comm_ring R] {P : R[X]} (hP : P ∉ non_zero_divisors R[X]) : (annihilator_deg P).is_wf := sorry
+
+
+/-- This is the mininum of `nonvide_image`. Forget about `noncomputalbe`. -/
+noncomputable
+def min_deg (hP : P ∉ non_zero_divisors R[X]) := set.is_wf.min (bien_fondee hP) (nonvide_image hP)
+
 lemma foo (P ∉ non_zero_divisors R[X]) : P.erase_lead ∉ non_zero_divisors R[X] :=
 begin
   sorry
