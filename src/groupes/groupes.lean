@@ -46,6 +46,12 @@ begin
     refine ⟨subH.2  aHH'.1, subH'.2 aHH'.2,⟩}
 end  
 
+lemma subgroup_inter2 (G: Type) [group G] (n : ℕ) (f : fin n → set G) 
+  (hf : ∀ x, is_subgroup (f x)) : is_subgroup (set.Inter f) :=
+begin
+  sorry,
+end
+
 example (n : ℕ) (hn : 2 ≤ n) : is_subgroup ({z | z ^ n = 1} : set ℂˣ) :=
 begin
   split,
