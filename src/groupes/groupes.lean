@@ -28,7 +28,7 @@ end
  
 lemma sym_sym_x (G : Type) [group G] (x : G) : (x⁻¹)⁻¹ = x :=
 begin 
-   exact foo1 G x x⁻¹ (by refine ⟨by exact mul_right_inv x, by exact mul_left_inv x⟩),
+   exact foo1 G x x⁻¹ ⟨mul_right_inv x, mul_left_inv x⟩,
 end
 
 lemma subgroup_inter (G: Type) [group G] {H H' : set G}
@@ -37,13 +37,13 @@ begin
   split,
   {split,
     { rw [set.mem_inter_iff],
-      refine ⟨by exact subH.1.1, by exact subH'.1.1⟩,},
+      refine ⟨subH.1.1, subH'.1.1⟩,},
     { intros a b aHH' bHH',
       rw [set.mem_inter_iff],
-      refine ⟨by exact subH.1.2 aHH'.1 bHH'.1 ,by exact subH'.1.2 aHH'.2 bHH'.2⟩,}},
+      refine ⟨subH.1.2 aHH'.1 bHH'.1, subH'.1.2 aHH'.2 bHH'.2⟩,}},
   { intros a aHH',
     rw [set.mem_inter_iff],
-    refine ⟨by exact subH.2  aHH'.1, by exact subH'.2 aHH'.2,⟩}
+    refine ⟨subH.2  aHH'.1, subH'.2 aHH'.2,⟩}
 end  
 
 example (n : ℕ) (hn : 2 ≤ n) : is_subgroup ({z | z ^ n = 1} : set ℂˣ) :=
