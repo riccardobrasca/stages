@@ -31,7 +31,10 @@ begin
 end
  
 
-lemma foo2 (G : Type) [group G] (x : G) : (x⁻¹)⁻¹ = x := foo1 x x⁻¹
+lemma foo2 (G : Type) [group G] (x : G) : (x⁻¹)⁻¹ = x :=
+begin 
+   exact foo1 G x x⁻¹ (by refine ⟨by exact mul_right_inv x, by exact mul_left_inv x⟩),
+end
 
 
 
