@@ -49,7 +49,19 @@ end
 lemma subgroup_inter2 (G: Type) [group G] (n : ℕ) (f : fin n → set G) 
   (hf : ∀ x, is_subgroup (f x)) : is_subgroup (set.Inter f) :=
 begin
-  sorry,
+  split, 
+  {split,
+   {rw [set.mem_Inter],
+    intro i,
+    exact (hf i).1.1},
+   {intros a b afi bfi,
+    rw [set.mem_Inter] at *,
+    intro i,
+    exact (hf i).1.2 (afi i) (bfi i)}},
+  {intros a afi,
+   rw [set.mem_Inter] at *,
+   intro i,
+   exact (hf i).2 (afi i)}
 end
 
 example (n : ℕ) (hn : 2 ≤ n) : is_subgroup ({z | z ^ n = 1} : set ℂˣ) :=
