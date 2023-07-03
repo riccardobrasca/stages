@@ -71,10 +71,8 @@ begin
       rw set.mem_set_of_eq at *,
       rw [mul_pow, aU, bU,one_mul]},
     { intros a aU,
-
       rw set.mem_set_of_eq at *,
-      rw [inv_pow,aU],
-      refl}
+      rw [inv_pow,aU,inv_one]}
 end
 
 lemma foo (G : Type) [semigroup G] {e : G} (He : ∀ g, g * e = g) {g g' g'' : G} 
@@ -98,7 +96,7 @@ begin
   use e,
   split,
   { intro g,
-    refine ⟨ by exact g,_⟩,
+    refine ⟨ by exact en g,_⟩,
     obtain ⟨g', hg'⟩ := inv g,
     rw [← hg', mul_assoc],
     suffices : g' * g = e,
@@ -116,5 +114,16 @@ end
 example (G : Type) [group G] (H : set G) (h : ∀ g₁ g₂, g₁ ∈ H → g₂ ∈ H → g₁ * g₂ ∈ H )
   (finite : H.finite) : is_subgroup H :=
 begin
-  sorry,
+  split,
+  {
+    split,
+    {
+      sorry
+    },
+    { intros a b aH bH,
+      exact h a b aH bH}
+  },
+  {
+    sorry
+  }
 end
