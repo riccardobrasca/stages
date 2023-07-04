@@ -62,6 +62,13 @@ begin
     exact (hf i).2 (afi i)}
 end 
 
+-- golfed version of the previous lemma
+lemma subgroup_interv2 (G: Type) [group G] (n : ℕ) (f : fin n → set G) 
+  (hf : ∀ x, is_subgroup (f x)) : is_subgroup (set.Inter f) := 
+  ⟨⟨set.mem_Inter.2 (λ i, (hf i).1.1), 
+  λ _ _ afi bfi, set.mem_Inter.2 (λ i, (hf i).1.2 ((set.mem_Inter.1 afi) i) ((set.mem_Inter.1 bfi) i))⟩, 
+  λ _ afi, set.mem_Inter.2 (λ i, (hf i).2 ((set.mem_Inter.1 afi) i))⟩
+
 example (n : ℕ) (hn : 2 ≤ n) : is_subgroup ({z | z ^ n = 1} : set ℂˣ) :=
 begin
   split,
