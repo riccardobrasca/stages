@@ -46,6 +46,21 @@ begin
     refine ⟨subH.2  aHH'.1, subH'.2 aHH'.2,⟩}
 end  
 
+#check set.mem_inter_iff
+
+lemma subgroup_inter_golfe (G: Type) [group G] {H H' : set G}
+(subH : is_subgroup H) (subH' : is_subgroup H') : is_subgroup (H ∩ H') :=
+begin
+  refine ⟨_,λ a aHH',_⟩,
+  {refine ⟨_,λ a b aHH' bHH',_⟩,
+    { rw [set.mem_inter_iff],
+      refine ⟨subH.1.1, subH'.1.1⟩,},
+    { rw [set.mem_inter_iff],
+      refine ⟨subH.1.2 aHH'.1 bHH'.1, subH'.1.2 aHH'.2 bHH'.2⟩,}}, 
+  { rw [set.mem_inter_iff],
+    refine ⟨subH.2  aHH'.1, subH'.2 aHH'.2,⟩}
+end 
+
 lemma subgroup_inter2 (G: Type) [group G] (n : ℕ) (f : fin n → set G) 
   (hf : ∀ x, is_subgroup (f x)) : is_subgroup (set.Inter f) :=
 begin
