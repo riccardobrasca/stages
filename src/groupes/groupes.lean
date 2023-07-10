@@ -49,18 +49,10 @@ end
 lemma subgroup_inter2 (G: Type) [group G] (n : ℕ) (f : fin n → set G) 
   (hf : ∀ x, is_subgroup (f x)) : is_subgroup (set.Inter f) :=
 begin
-  refine ⟨_,λ a afi,_⟩,
-  { refine ⟨_,λ a b afi bfi,_⟩,
-    { rw [set.mem_Inter],
-      intro i,
-      exact (hf i).1.1},
-    { rw [set.mem_Inter] at *,
-      intro i,
-      exact (hf i).1.2 (afi i) (bfi i)}},
-  { rw [set.mem_Inter] at *,
-    intro i,
-    exact (hf i).2 (afi i)}
+  refine ⟨_,λ a afi, set.mem_Inter.2 (λ i, (hf i).2 ((set.mem_Inter.1 afi) i))⟩,
+   refine ⟨ set.mem_Inter.2 (λ i, (hf i).1.1), λ a b afi bfi, set.mem_Inter.2 (λ i, (hf i).1.2 (( set.mem_Inter.1 afi) i) ((set.mem_Inter.1 bfi) i))⟩,
 end 
+
 
 -- golfed version of the previous lemma
 lemma subgroup_interv2 (G: Type) [group G] (n : ℕ) (f : fin n → set G) 
